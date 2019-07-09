@@ -11,6 +11,11 @@ use App\Report;
 
 class ReportController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
 
     private $report;
 
@@ -21,15 +26,14 @@ class ReportController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
-        return view('user.daily_report.index');
+        // dd($this->report);
+        $reports = $this->report->getAll(Auth::id());
+        // dd($reports);
+        return view('user.daily_report.index', compact('reports'));
+        // return view('user.daily_report.index');
     }
 
     /**
@@ -56,7 +60,7 @@ class ReportController extends Controller
         $input = $request->all();
         $input['user_id'] = Auth::id();
         $this->report->fill($input)->save();
-        // return redirect()->to('report');
+        return redirect()->to('report');
     }
 
     /**

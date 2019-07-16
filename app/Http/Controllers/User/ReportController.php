@@ -100,6 +100,11 @@ class ReportController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'contents' => 'required',
+        ]);
+
         $input = $request->all();
         $this->report->find($id)->fill($input)->save();
         return redirect()->to('report');

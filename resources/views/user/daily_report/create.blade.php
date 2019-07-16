@@ -16,10 +16,10 @@
         {{ $errors->first('title') }}
       </span>
     </div>
-    <div class="form-group @if($errors->has('title')) has-error @endif">
+    <div class="form-group @if($errors->has('contents')) has-error @endif">
       <textarea class="form-control" placeholder="Content" name="contents" cols="50" rows="10"></textarea>
       <span class="help-block">
-        {{ $errors->first('title') }} 
+        {{ $errors->first('contents') }}
       </span>
     </div>
     <!-- <button type="submit" class="btn btn-success pull-right">Add</button> -->

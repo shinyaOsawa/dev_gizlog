@@ -29,11 +29,8 @@ class ReportController extends Controller
     public function index()
     {
         //
-        // dd($this->report);
         $reports = $this->report->getAll(Auth::id());
-        // dd($reports);
         return view('user.daily_report.index', compact('reports'));
-        // return view('user.daily_report.index');
     }
 
     /**
@@ -56,7 +53,11 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         //
-        // dd($request);
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'contents' => 'required',
+        ]);
+
         $input = $request->all();
         $input['user_id'] = Auth::id();
         $this->report->fill($input)->save();
@@ -85,6 +86,8 @@ class ReportController extends Controller
     public function edit($id)
     {
         //
+        $report = $this->report->find($id);
+        return view('user.daily_report.edit', compact('report'));
     }
 
     /**
@@ -97,6 +100,9 @@ class ReportController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $input = $request->all();
+        $this->report->find($id)->fill($input)->save();
+        return redirect()->to('report');
     }
 
     /**
@@ -108,5 +114,7 @@ class ReportController extends Controller
     public function destroy($id)
     {
         //
+        $this->report->find($id)->delete();
+        return redirect()->to('report');
     }
 }

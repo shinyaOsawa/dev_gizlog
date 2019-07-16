@@ -10,13 +10,17 @@
     <input class="form-control" name="reporting_time" type="date">
     <span class="help-block"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group @if($errors->has('title')) has-error @endif">
       <input class="form-control" placeholder="Title" name="title" type="text">
-      <span class="help-block"></span>
+      <span class="help-block">
+        {{ $errors->first('title') }}
+      </span>
     </div>
-    <div class="form-group">
+    <div class="form-group @if($errors->has('title')) has-error @endif">
       <textarea class="form-control" placeholder="Content" name="contents" cols="50" rows="10"></textarea>
-      <span class="help-block"></span>
+      <span class="help-block">
+        {{ $errors->first('title') }} 
+      </span>
     </div>
     <!-- <button type="submit" class="btn btn-success pull-right">Add</button> -->
     {!! Form::submit('Add', ['class' => 'btn btn-success pull-right']) !!}

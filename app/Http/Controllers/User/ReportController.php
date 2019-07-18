@@ -29,8 +29,14 @@ class ReportController extends Controller
     public function index()
     {
         //
-        $reports = $this->report->getAll(Auth::id());
-        return view('user.daily_report.index', compact('reports'));
+        if(isset($_GET['search-month'])) {
+            $searchMonth = $_GET['search-month'];
+            $reports = $this->report->searchByMonth(Auth::id(), $searchMonth);
+            return view('user.daily_report.index', compact('reports'));
+        }else{
+            $reports = $this->report->getAll(Auth::id());
+            return view('user.daily_report.index', compact('reports'));
+        }
     }
 
     /**

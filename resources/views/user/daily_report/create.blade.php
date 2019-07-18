@@ -22,8 +22,7 @@
         {{ $errors->first('contents') }}
       </span>
     </div>
-    <!-- <button type="submit" class="btn btn-success pull-right">Add</button> -->
-    {!! Form::submit('Add', ['class' => 'btn btn-success pull-right']) !!}
+    <button type="submit" class="btn btn-success pull-right">Add</button>
 {!! Form::close() !!}
   </div>
 </div>

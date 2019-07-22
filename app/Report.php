@@ -20,11 +20,14 @@ class Report extends Model
 
     public function getAll($id)
     {
-        return $this->where('user_id', $id)->get();
+        return $this->where('user_id', $id)
+                    ->get();
     }
 
     public function searchByMonth($id, $month)
     {
-        return $this->where('user_id', $id)->where('reporting_time', 'LIKE', "{$month}%")->get();
+        return $this->where('user_id', $id)
+                    ->where('reporting_time', 'LIKE', "{$month}%")
+                    ->get();
     }
 }

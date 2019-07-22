@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Report;
 
+use App\Http\Requests\DailyReportRequest;
+
 class ReportController extends Controller
 {
     /**
@@ -22,8 +24,8 @@ class ReportController extends Controller
     public function __construct(Report $instanceClass)
 
     {
-        $this->report = $instanceClass;
         $this->middleware('auth');
+        $this->report = $instanceClass;
     }
 
     public function index()
@@ -32,11 +34,10 @@ class ReportController extends Controller
         if(isset($_GET['search-month'])) {
             $searchMonth = $_GET['search-month'];
             $reports = $this->report->searchByMonth(Auth::id(), $searchMonth);
-            return view('user.daily_report.index', compact('reports'));
         }else{
             $reports = $this->report->getAll(Auth::id());
-            return view('user.daily_report.index', compact('reports'));
         }
+        return view('user.daily_report.index', compact('reports'));
     }
 
     /**
@@ -56,14 +57,9 @@ class ReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DailyReportRequest $request)
     {
         //
-        $validatedData = $request->validate([
-            'title' => 'required',
-            'contents' => 'required',
-        ]);
-
         $input = $request->all();
         $input['user_id'] = Auth::id();
         $this->report->fill($input)->save();
@@ -103,14 +99,9 @@ class ReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DailyReportRequest $request, $id)
     {
         //
-        $validatedData = $request->validate([
-            'title' => 'required',
-            'contents' => 'required',
-        ]);
-
         $input = $request->all();
         $this->report->find($id)->fill($input)->save();
         return redirect()->to('report');

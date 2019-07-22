@@ -31,10 +31,9 @@ class ReportController extends Controller
     public function index(Request $request)
     {
         //
-        $input = $request->input('search-month');
-        // dd($input);
-        if(isset($input)) {
-            $reports = $this->report->searchByMonth(Auth::id(), $input);
+        $month = $request->input('search-month');
+        if(isset($month)) {
+            $reports = $this->report->searchByMonth(Auth::id(), $month);
         }else{
             $reports = $this->report->getAll(Auth::id());
         }

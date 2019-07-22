@@ -28,12 +28,13 @@ class ReportController extends Controller
         $this->report = $instanceClass;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         //
-        if(isset($_GET['search-month'])) {
-            $searchMonth = $_GET['search-month'];
-            $reports = $this->report->searchByMonth(Auth::id(), $searchMonth);
+        $input = $request->input('search-month');
+        // dd($input);
+        if(isset($input)) {
+            $reports = $this->report->searchByMonth(Auth::id(), $input);
         }else{
             $reports = $this->report->getAll(Auth::id());
         }

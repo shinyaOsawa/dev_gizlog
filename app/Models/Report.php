@@ -1,27 +1,43 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Report extends Model
 {
-    //
     use SoftDeletes;
-    protected $fillable = [
+    protected $fillable =
+    [
         'title',
         'contents',
         'user_id',
         'reporting_time'
     ];
 
-    protected $dates = ['deleted_at'];
+    /**
+     * 日付を変形する属性
+     *
+     * @var array
+     */
+    protected $dates =
+    [
+        'reporting_time',
+        'deleted_at'
+    ];
+
+    /**
+     * モデルの日付カラムの保存形式
+     *
+     * @var string
+     */
+    protected $dateFormat = 'U';
+
 
     public function getAll($id)
     {
-        return $this->where('user_id', $id)
-                    ->get();
+        return $this->where('user_id', $id)->get();
     }
 
     public function searchByMonth($id, $month)

@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+// use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
-use App\Report;
-
-use App\Http\Requests\DailyReportRequest;
+use App\Models\Report;
+use App\Http\Requests\User\DailyReportRequest;
 
 class ReportController extends Controller
 {
@@ -21,18 +19,19 @@ class ReportController extends Controller
 
     private $report;
 
-    public function __construct(Report $instanceClass)
+    public function __construct(Report $report)
 
     {
         $this->middleware('auth');
-        $this->report = $instanceClass;
+        $this->report = $report;
     }
 
     public function index(Request $request)
     {
-        //
         $month = $request->input('search-month');
-        if(isset($month)) {
+        // dd(Auth::id());
+        // dd($month);
+        if(isset($month)){
             $reports = $this->report->searchByMonth(Auth::id(), $month);
         }else{
             $reports = $this->report->getAll(Auth::id());
@@ -47,7 +46,6 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
         return view('user.daily_report.create');
     }
 
@@ -74,7 +72,6 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        //
         $report = $this->report->find($id);
         return view('user.daily_report.show', compact('report'));
     }
@@ -87,7 +84,6 @@ class ReportController extends Controller
      */
     public function edit($id)
     {
-        //
         $report = $this->report->find($id);
         return view('user.daily_report.edit', compact('report'));
     }
@@ -101,7 +97,6 @@ class ReportController extends Controller
      */
     public function update(DailyReportRequest $request, $id)
     {
-        //
         $input = $request->all();
         $this->report->find($id)->fill($input)->save();
         return redirect()->to('report');
@@ -115,7 +110,6 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-        //
         $this->report->find($id)->delete();
         return redirect()->to('report');
     }

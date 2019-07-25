@@ -27,14 +27,6 @@ class Report extends Model
         'deleted_at'
     ];
 
-    /**
-     * モデルの日付カラムの保存形式
-     *
-     * @var string
-     */
-    protected $dateFormat = 'U';
-
-
     public function getAll($id)
     {
         return $this->where('user_id', $id)->get();

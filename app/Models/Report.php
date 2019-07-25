@@ -23,6 +23,8 @@ class Report extends Model
      */
     protected $dates =
     [
+        'created_at',
+        'updated_at',
         'reporting_time',
         'deleted_at'
     ];

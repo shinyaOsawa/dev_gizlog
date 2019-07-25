@@ -21,6 +21,7 @@ class Report extends Model
      *
      * @var array
      */
+
     protected $dates = [
         'reporting_time'
     ];

@@ -20,7 +20,6 @@ class ReportController extends Controller
     private $report;
 
     public function __construct(Report $report)
-
     {
         $this->middleware('auth');
         $this->report = $report;
@@ -55,7 +54,6 @@ class ReportController extends Controller
      */
     public function store(DailyReportRequest $request)
     {
-        //
         $input = $request->all();
         $input['user_id'] = Auth::id();
         $this->report->fill($input)->save();

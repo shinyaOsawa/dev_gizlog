@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Report extends Model
 {
     use SoftDeletes;
-    protected $fillable =
-    [
+
+    protected $fillable = [
         'title',
         'contents',
         'user_id',
@@ -21,23 +21,20 @@ class Report extends Model
      *
      * @var array
      */
-    protected $dates =
-    [
-        'created_at',
-        'updated_at',
-        'reporting_time',
-        'deleted_at'
+    protected $dates = [
+        'reporting_time'
     ];
 
-    public function getAll($id)
+    public function fetchReportByUserid($id)
     {
-        return $this->where('user_id', $id)->get();
+        return $this->where('user_id', $id)->orderBy('reporting_time', 'desc')->get();
     }
 
-    public function searchByMonth($id, $month)
+    public function fetchReportByUseridAndMonth($id, $month)
     {
         return $this->where('user_id', $id)
                     ->where('reporting_time', 'LIKE', "{$month}%")
+                    ->orderBy('reporting_time', 'desc')
                     ->get();
     }
 }

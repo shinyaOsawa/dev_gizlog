@@ -27,9 +27,9 @@ class ReportController extends Controller
     {
         $month = $request->input('search-month');
         if (isset($month)) {
-            $reports = $this->report->searchByMonth(Auth::id(), $month);
+            $reports = $this->report->fetchReportByUseridAndMonth(Auth::id(), $month);
         } else {
-            $reports = $this->report->getAll(Auth::id());
+            $reports = $this->report->fetchReportByUserid(Auth::id());
         }
         return view('user.daily_report.index', compact('reports'));
     }

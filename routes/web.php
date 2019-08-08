@@ -10,8 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-Route::resource('report', 'User\ReportController');
-
 Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Auth::routes();
 
@@ -40,6 +38,8 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::get('attendance/modify', ['as' => 'attendance.modify', 'uses' => 'AttendanceController@showModifyForm']);
     Route::post('attendance/modify', ['as' => 'attendance.modify.store', 'uses' => 'AttendanceController@storeModifyRequest']);
     Route::get('attendance/mypage', ['as' => 'attendance.mypage', 'uses' => 'AttendanceController@showMypage']);
+
+    Route::resource('report', 'ReportController');
 
     Route::get('question/{id}/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@myPage']);
     Route::post('question/confirm', ['as' => 'question.confirm', 'uses' => 'QuestionController@confirm']);
